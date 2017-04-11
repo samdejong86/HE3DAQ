@@ -1,0 +1,11 @@
+record(sub,"my_sub_record") {
+       field(SNAM,"my_sub_routine")
+       field(INPA, "1")
+}
+
+record(aSub,"my_asub_record") {
+       field(SNAM,"my_asub_routine")
+       field(FTA, "LONG")
+       field(NOA, "100")
+       field(INPA, "myWaveform_1 NPP NMS")
+}

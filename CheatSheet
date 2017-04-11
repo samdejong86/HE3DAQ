@@ -1,0 +1,52 @@
+
+#To read a record:
+
+dbpf recordname.PROC 1
+
+#eg:
+dbpf BEAST:DAQ:HE3:DIGI:CONTROL.PROC 1
+dbpf histoData.PROC 1
+
+
+
+#To change a variable:
+
+dbpf BEAST:DAQ:HE3:DIGI:CONTROL.A 1
+#sets BEAST:DAQ:HE3:DIGI:CONTROL's A variable to 1.
+
+
+#So, to run the program, (after making)
+
+#run
+./bin/linux-x86_64/he3DAQ iocBoot/energyioc/st.cmd
+
+#At epics command line run:
+
+dbpf BEAST:DAQ:HE3:DIGI:CONTROL.PROC 1
+#or
+dbpf BEAST:DAQ:HE3:DIGI:CONTROL.A 1
+
+#The program is now generating data every 5 seconds. The will be added to the histoData record. to view it, run 
+dbpf histoData.PROC 1
+
+#To stop generating data, set BEAST:DAQ:HE3:DIGI:CONTROL.A to 2:
+dbpf BEAST:DAQ:HE3:DIGI:CONTROL.A 2
+
+#To restart data generation:
+dbpf BEAST:DAQ:HE3:DIGI:CONTROL.A 1
+
+#to reset the data array, set BEAST:DAQ:HE3:DIGI:CONTROL.A to 3:
+dbpf BEAST:DAQ:HE3:DIGI:CONTROL.A 3
+
+#note that if the data generation has been stopped, the data array will not be reset until it is restarted, but if data generation is running when the reset is sent, the data is reset immediately. 
+
+Commands:
+
+0	initialize
+1	start daq
+2	clear histos
+3	update (write) histos
+4	pause daq
+5	resume daq
+6	end daq
+

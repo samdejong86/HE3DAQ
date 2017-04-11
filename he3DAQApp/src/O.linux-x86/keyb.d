@@ -1,0 +1,1 @@
+keyb.o: ../keyb.c
