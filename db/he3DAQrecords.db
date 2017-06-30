@@ -1,75 +1,11 @@
-record(sub,"$(SubDet):DIGI:CONTROL") {
-       field(SNAM,"commandRoutine")
-       field(DESC,"Record controls the he3-tube digitizer")
-#       field(INPA, "0")
+record(sub,"my_sub_record") {
+       field(SNAM,"my_sub_routine")
+       field(INPA, "1")
 }
 
-record(sub, "$(SubDet):DIGI:RATES") {
-       field(SNAM, "getRates")
-       field(DESC, "Rates of he3tubes")
-       field(SCAN, "1 second")
-}
-
-record(sub, "$(SubDet):DIGI:INTEGRATEDHITS") {
-       field(SNAM, "getIntegratedHits")
-       field(DESC, "Integrated Hits in He3tubes")
-       field(SCAN, "10 second")
-}
-
-record(sub, "$(SubDet):DIGI:SENDSWTRIG") {
-	field(SNAM, "sendSWtrigger")
-	field(DESC, "Sends a software trigger to the digitizer")
-	#field(SCAN, "10 second")
-	field(INPA, 0) #set to 1 to print to console after every software trigger
-}
-
-
-record(calcout, "$(SubDet):DIGI:BEASTRCINTERFACE") {
-       field(INPA, "BEAST:BEASTMASTER:RC:RUN CPP")
-       field(CALC, "A?1:6")
-       field(OUT,  "$(SubDet):DIGI:CONTROL.A PP")
-       field(SCAN, "Passive")
-       field(OOPT, "On Change")
-}
-
-record(sub, "$(SubDet):SAVEDATA"){
-       field(SNAM, "saveData")
-       field(DESC, "Saves data buffered by the IOC")		    
-}
-
-record(sub, "$(SubDet):DIGI:PARAMS1") {
-       field(SNAM, "paramRoutine1")
-       field(DESC, "Parameters for He3 digitizer")
-       field(INPA, "-1")	  #Whether or not to change parameters. -1 means no change.
-       field(INPB, "0")		  #decimation
-       field(INPC, "1000")	  #trigger threshold
-       field(INPD, "4000")	  #Decay Time Constant (ns)
-       field(INPE, "1500")	  #Trapezoid rise time
-       field(INPF, "1000")	  #Trapezoid Flat Top
-       field(INPG, "670")	  #Flat Top Delay (ns)
-       field(INPH, "8")		  #Trigger Filter Smoothing factor
-       field(INPI, "100")	  #input signal tise time (ns)
-       field(INPJ, "100")	  #Base Line Hold Off (ns)
-       field(INPK, "1300")	  #trigger hold off (ns)
-       field(INPL, "6553")	  #DC threshold
-}
-
-record(sub, "$(SubDet):DIGI:PARAMS2") {
-       field(SNAM, "paramRoutine2")
-       field(DESC, "Parameters for He3 digitizer")
-       field(INPA, "-1")	  #Whether or not to change parameters. -1 means no change
-       field(INPB, "4")		  #Number of Samples for Baseline Mean
-       field(INPC, "0")		  #Number of samples for peak mean
-       field(INPD, "0")		  #Digital Probe Gain
-       field(INPE, "1.0")	  #Energy Normalization Factor
-       field(INPF, "0")		  #Enable overlab rejection
-       field(INPG, "1")		  #ENABLE_RT_DISCR
-       field(INPH, "2549")	  #RT_DISCR_WINDOW
-       field(INPI, "770")	  #Peak hold off (ns)
-       field(INPJ, "5080")	  #Save root ntuple after this many events. Recomment a multiple of 127 - changed on 16/04/16. applied at next IOC restart
-}
-
-record(sub,"$(SubDet):SETPATH"){
-       field(SNAM, "setPath")
-       field(DESC, "/home/sam/work/he3Calib")
+record(aSub,"my_asub_record") {
+       field(SNAM,"my_asub_routine")
+       field(FTA, "LONG")
+       field(NOA, "100")
+       field(INPA, "myWaveform_1 NPP NMS")
 }

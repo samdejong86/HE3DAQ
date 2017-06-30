@@ -850,25 +850,36 @@ void ClearHistos ()
 //setting of digitizer parameters will likely be implemented here
 long commandRoutine(struct subRecord *psub) {
   switch ((int)psub->a) {
-
     //could be moved to main method?
-    case 0: {						// initialize and program the digitizer
-      //printf ("Initializing the digitizer...\n");
-      //InitializeDigitizer();
-    } break;
+  case 0: {
+    message=6;
+      plock->lock();
+      if(isRunning) {
+	mq1->send((void *) &message, sizeof(int));
+	isRunning=false;
+	psub->l=0;
+      } else {
+	printf("Aquisition not started yet!");
+	//psub->a=6;
+      }
+      plock->unlock();
+    } break;					
 
-    case 1: {						// start readout loop                  
+  case 1: {						// start readout loop                  
       printf ("Initializing the digitizer...\n");
       InitializeDigitizer();
       if(!DigiInit){
+	psub->l=0;
 	printf("Digitizer not initalized properly\n");
 	break;	
       }
+      
       plock->lock();// lock resource
       if (myThread==0){					// no thread in existance
         AcqRun = 1;
 	isRunning=true;
         myThread=epicsThreadCreate("myThread", epicsThreadPriorityMedium, epicsThreadStackSmall, readoutData, NULL);
+	psub->l=1;
       }
       else printf( "There's already a thread!\n");	//if there is a thread, do nothing and print message
       plock->unlock();					//release resource
@@ -894,14 +905,7 @@ long commandRoutine(struct subRecord *psub) {
       mq1->send((void *) &message, sizeof(int));
     } break;
 
-    case 6: {						// end readout loop              
-      message=6;
-      if(isRunning) {
-	mq1->send((void *) &message, sizeof(int));
-	isRunning=false;
-      } else {
-	printf("Aquisition not started yet!");
-      }
+    case 6: {
     } break;
   
     default: {
