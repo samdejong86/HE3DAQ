@@ -278,7 +278,7 @@ static struct iocshVarDef vardefs[] = {
 
 int he3DAQ_registerRecordDeviceDriver(DBBASE *pbase)
 {
-    const char *bldTop = "/home/sam/work/beast_daq/epicsIOCs/he3master";
+    const char *bldTop = "/media/Extra_Space/work/he3IOC/HE3DAQ";
     const char *envTop = getenv("TOP");
 
     if (envTop && strcmp(envTop, bldTop)) {
