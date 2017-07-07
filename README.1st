@@ -23,7 +23,7 @@ The EPICS base will need to be installed as well (located at https://www.aps.anl
     When installing, you may get an error about 'readline.h'. if this occurs, open 'configure/os/CONFIG_SITE.Common.linux-x86_64' and comment out the line that says 'COMMANDLINE_LIBRARY = READLINE' (line 27ish).
     
 
-Now install the CAEN libraries (located at https://particle.phys.uvic.ca/~srdejong/caen/) in this order:
+Now install the CAEN libraries (located in caen/) in this order:
     CAEN VME library   (CAENVMELib-2.30.2.tgz)
     CAEN USB library   (CAENUSBdrvB-1.3.tgz)
     CAEN Comm library  (CAENComm-1.02.tgz)
