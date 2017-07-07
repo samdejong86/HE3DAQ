@@ -10,6 +10,12 @@ record(sub, "$(SubDet):DIGI:RATES") {
        field(SCAN, "1 second")
 }
 
+record(sub, "$(SubDet):DIGI:PILEUP") {
+       field(SNAM, "getPileup")
+       field(DESC, "Pileup rates of he3tubes")
+       field(SCAN, "1 second")
+}
+
 record(sub, "$(SubDet):DIGI:INTEGRATEDHITS") {
        field(SNAM, "getIntegratedHits")
        field(DESC, "Integrated Hits in He3tubes")
@@ -71,5 +77,5 @@ record(sub, "$(SubDet):DIGI:PARAMS2") {
 
 record(sub,"$(SubDet):SETPATH"){
        field(SNAM, "setPath")
-       field(DESC, "/home/sam/work/he3Calib")
+       field(DESC, "/home/Caleb/Work/He3DAQ/CalibOut/")
 }

@@ -25,7 +25,7 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 #SNCSEQ=$(EPICS_BASE)/../modules/soft/seq
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=/home/sam/work/epics/epics3.14-3.14.12.3/
+EPICS_BASE=/home/Caleb/Work/EPICS/base-3.14.12.3/
 
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:

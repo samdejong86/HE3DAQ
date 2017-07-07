@@ -262,6 +262,7 @@ epicsShareExtern void (*pvar_func_register_func_paramRoutine1)(void);
 epicsShareExtern void (*pvar_func_register_func_paramRoutine2)(void);
 epicsShareExtern void (*pvar_func_register_func_setPath)(void);
 epicsShareExtern void (*pvar_func_register_func_getRates)(void);
+epicsShareExtern void (*pvar_func_register_func_getPileup)(void);
 epicsShareExtern void (*pvar_func_register_func_getIntegratedHits)(void);
 epicsShareExtern void (*pvar_func_register_func_sendSWtrigger)(void);
 epicsShareExtern void (*pvar_func_register_func_saveData)(void);
@@ -278,7 +279,7 @@ static struct iocshVarDef vardefs[] = {
 
 int he3DAQ_registerRecordDeviceDriver(DBBASE *pbase)
 {
-    const char *bldTop = "/media/Extra_Space/work/he3IOC/HE3DAQ";
+    const char *bldTop = "/home/Caleb/Work/He3DAQ/HE3DAQ";
     const char *envTop = getenv("TOP");
 
     if (envTop && strcmp(envTop, bldTop)) {
@@ -300,6 +301,7 @@ int he3DAQ_registerRecordDeviceDriver(DBBASE *pbase)
     (*pvar_func_register_func_paramRoutine2)();
     (*pvar_func_register_func_setPath)();
     (*pvar_func_register_func_getRates)();
+    (*pvar_func_register_func_getPileup)();
     (*pvar_func_register_func_getIntegratedHits)();
     (*pvar_func_register_func_sendSWtrigger)();
     (*pvar_func_register_func_saveData)();

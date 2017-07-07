@@ -46,7 +46,7 @@ struct timeval timeMark;
 
 //number of triggers before the data is saved to file
 int NTRIGS=5080;
-int m_numTrigs[4]={0};
+int m_numTrigs[8]={0};
 bool isRunning=false;
 
 
@@ -65,28 +65,48 @@ std::vector<std::vector<double> > digiTime(4, std::vector<double>(NTRIGS));
 std::vector<std::vector<double> > PCtime(4, std::vector<double>(NTRIGS));
 */
 
-std::vector<double> pulseH[4] = {std::vector<double>(),
+std::vector<double> pulseH[8] = {std::vector<double>(),
+				 std::vector<double>(),
+				 std::vector<double>(),
+				 std::vector<double>(),
+				 std::vector<double>(),
 				 std::vector<double>(),
 				 std::vector<double>(),
 				 std::vector<double>()};
 
-std::vector<double> digiTime[4] = {std::vector<double>(),
+std::vector<double> digiTime[8] = {std::vector<double>(),
+				   std::vector<double>(),
+				   std::vector<double>(),
+				   std::vector<double>(),
+				   std::vector<double>(),
 				   std::vector<double>(),
 				   std::vector<double>(),
 				   std::vector<double>()};
 
-std::vector<double> PCtime[4] = {std::vector<double>(),
+std::vector<double> PCtime[8] = {std::vector<double>(),
+				 std::vector<double>(),
+				 std::vector<double>(),
+				 std::vector<double>(),
+				 std::vector<double>(),
 				 std::vector<double>(),
 				 std::vector<double>(),
 				 std::vector<double>()};
 
-std::vector<double> runStartTime[4] = {std::vector<double>(),
+std::vector<double> runStartTime[8] = {std::vector<double>(),
+				       std::vector<double>(),
+				       std::vector<double>(),
+				       std::vector<double>(),
+				       std::vector<double>(),
 				       std::vector<double>(),
 				       std::vector<double>(),
 				       std::vector<double>()};
 
 
-std::vector<int> rollover[4] = {std::vector<int>(),
+std::vector<int> rollover[8] = {std::vector<int>(),
+				std::vector<int>(),
+				std::vector<int>(),
+				std::vector<int>(),
+				std::vector<int>(),
 				std::vector<int>(),
 				std::vector<int>(),
 				std::vector<int>()};
@@ -297,7 +317,7 @@ void readIntegratedCountFile(){
   std::string fileBase = "he3Count_";
   int error=0;
 
-  for(int i=0; i<4; i++){
+  for(int i=0; i<8; i++){
     ss<<i;
     std::string filename = path+fileBase+ss.str()+".dat";
     ss.str(std::string());
@@ -327,7 +347,7 @@ void writeIntegratedCountFile(){
   
   //printf("writing integrated counts to file\n");
   
-  for(int i=0; i<4; i++){
+  for(int i=0; i<8; i++){
     ss<<i;
     std::string filename = path+fileBase+ss.str()+".dat";
     ss.str(std::string());
@@ -469,11 +489,11 @@ int InitializeDigitizer()
     //Params[b].AcqMode = CAEN_DGTZ_DPP_ACQ_MODE_Oscilloscope;	// CAEN_DGTZ_DPP_ACQ_MODE_List or CAEN_DGTZ_DPP_ACQ_MODE_Oscilloscope
     Params[b].AcqMode = CAEN_DGTZ_DPP_ACQ_MODE_List;		// CAEN_DGTZ_DPP_ACQ_MODE_List or CAEN_DGTZ_DPP_ACQ_MODE_Oscilloscope
     Params[b].RecordLength = 1024;				// Num of samples of the waveforms (only for Oscilloscope mode)
-    //Params[b].ChannelMask = 0xFF;				// Channel enable mask - channels 0 -> 7
+    Params[b].ChannelMask = 0xFF;				// Channel enable mask - channels 0 -> 7
     //Params[b].ChannelMask = 0x1;				// Channel enable mask - channel 0 only               0x1 -> 1
     //Params[b].ChannelMask = 0x3;				// Channel enable mask - channels 0 and 1 only        0x3 -> 11
     //Params[b].ChannelMask = 0x7;				// Channel enable mask - channels 0, 1, and 2 only    0x7 -> 111
-    Params[b].ChannelMask = 0xF;                                // Channel enable mask - channels 0-3?                0xF -> 1111
+    //Params[b].ChannelMask = 0xF;                                // Channel enable mask - channels 0-3?                0xF -> 1111
     Params[b].EventAggr = 0;					// number of events in one aggregate (0=automatic)
     Params[b].PulsePolarity = CAEN_DGTZ_PulsePolarityNegative;	// Pulse Polarity (this parameter can be individual)
       
@@ -1004,6 +1024,10 @@ static long getRates(struct subRecord *psub) {
   psub->b=Trg1Sec[1];
   psub->c=Trg1Sec[2];
   psub->d=Trg1Sec[3];
+  psub->e=Trg1Sec[4];
+  psub->f=Trg1Sec[5];
+  psub->g=Trg1Sec[6];
+  psub->h=Trg1Sec[7];
 
   //pileups
   psub->e=PUCnt[0][0];  
@@ -1019,6 +1043,21 @@ static long getRates(struct subRecord *psub) {
 
   return 0;
 
+}
+
+static long getPileup(struct subRecord *psub) {
+
+  //pileups
+  psub->a=PUCnt[0][0];  
+  psub->b=PUCnt[0][1];
+  psub->c=PUCnt[0][2];
+  psub->d=PUCnt[0][3];
+  psub->e=PUCnt[0][4];  
+  psub->f=PUCnt[0][5];
+  psub->g=PUCnt[0][6];
+  psub->h=PUCnt[0][7];
+
+  return 0;
 }
 
 static long getIntegratedHits(struct subRecord *psub) {
@@ -1055,7 +1094,7 @@ static long saveData(struct subRecord *psub){
     while(AcqRun==0) sleep (1);
     
     //write data
-    for(int k=0; k<4; k++){
+    for(int k=0; k<8; k++){
       if(m_numTrigs[k]!=0) writeNtuple(k); 
       m_numTrigs[k]=0;
     }
@@ -1074,6 +1113,7 @@ epicsRegisterFunction(paramRoutine1);
 epicsRegisterFunction(paramRoutine2);
 epicsRegisterFunction(setPath);
 epicsRegisterFunction(getRates);
+epicsRegisterFunction(getPileup);
 epicsRegisterFunction(getIntegratedHits);
 epicsRegisterFunction(sendSWtrigger);
 epicsRegisterFunction(saveData);
