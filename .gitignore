@@ -1,2 +1,9 @@
+# Root Files #
+*.root
+
+# automatic backups #
 *~
 *#
+
+#build files
+O.*
