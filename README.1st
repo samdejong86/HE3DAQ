@@ -10,7 +10,7 @@ libXft-devel
 libXext-devel
 python
 redhat-lsb-core
-readline-devel.x86_64
+
 
 The EPICS base will need to be installed as well (located at https://www.aps.anl.gov/epics/download/base/baseR3.14.12.3.tar.gz)
     
