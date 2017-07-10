@@ -6,4 +6,5 @@
 *#
 
 #build files
-he3DAQApp/src/O.*
+O.*
+bin/*
