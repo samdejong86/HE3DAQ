@@ -48,7 +48,7 @@ record(sub, "$(SubDet):DIGI:PARAMS1") {
        field(DESC, "Parameters for He3 digitizer")
        field(INPA, "-1")	  #Whether or not to change parameters. -1 means no change.
        field(INPB, "0")		  #decimation
-       field(INPC, "1000")	  #trigger threshold
+       field(INPC, "600")	  #trigger threshold
        field(INPD, "4000")	  #Decay Time Constant (ns)
        field(INPE, "1500")	  #Trapezoid rise time
        field(INPF, "1000")	  #Trapezoid Flat Top

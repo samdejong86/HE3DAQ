@@ -792,7 +792,7 @@ void readoutData (void *ptr) {
 
       case 6: {					// reset myThread and exit readout loop
         printf("Acquisition Ended\n");
-	for(int k=0; k<4; k++){
+	for(int k=0; k<8; k++){
 	  if(m_numTrigs[k]!=0) writeNtuple(k);  //write data to file.
 	  
 	}
