@@ -879,7 +879,7 @@ long commandRoutine(struct subRecord *psub) {
         AcqRun = 1;
 	isRunning=true;
         myThread=epicsThreadCreate("myThread", epicsThreadPriorityMedium, epicsThreadStackSmall, readoutData, NULL);
-	psub->l=1;
+	psub->l=false;
       }
       else printf( "There's already a thread!\n");	//if there is a thread, do nothing and print message
       plock->unlock();					//release resource
